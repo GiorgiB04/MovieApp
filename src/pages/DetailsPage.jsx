@@ -71,69 +71,64 @@ const Details = () => {
             className="w-[100%] h-[auto] bg-gradient-to-r bg-cover bg-no-repeat 
   bg-center"
           >
-            <div
-              className={`bg-[url('${bg_cover}')] w-[100%] h-[auto] bg-cover bg-no-repeat 
-  bg-center`}
-            >
-              <div className="m-7 p-5 flex ">
-                <div className=" w-[280px] rounded-lg m-2 overflow-hidden ">
-                  <img
-                    className=""
-                    src={imgUrl + "/w300" + details.poster_path}
-                    alt={title}
-                  />
-                </div>
-                <div className="m-2 px-5 w-full">
-                  <h2 className="py-3 text-5xl font-bold">{title}</h2>
-                  <div>
-                    <span>{releaseDate}</span>
-                    <span> | </span>
-                    <span>{runtime} Min</span>
-                    <span className="flex">
-                      {details?.genres?.map((genre) => (
-                        <div
-                          key={genre?.id}
-                          className="px-3 border-2 mt-3 mr-2 border-slate-500 rounded-full"
-                        >
-                          {genre?.name}
-                        </div>
-                      ))}
-                    </span>
-                  </div>
-                  <div className="my-4 italic text-slate-300 text-lg">
-                    {details.tagline}
-                  </div>
-                  <span>{details.vote_average?.toFixed(1)}/10</span>
-
-                  <div className="mb-2 py-2 max-w-screen-md">
-                    <h3 className="text-lg font-bold">Overview</h3>
-                    {details.overview}
-                  </div>
-                </div>
+            <div className="m-7 p-5 flex ">
+              <div className=" w-[280px] rounded-lg m-2 overflow-hidden ">
+                <img
+                  className=""
+                  src={imgUrl + "/w300" + details.poster_path}
+                  alt={title}
+                />
               </div>
-              <div className="m-7 p-5 flex-row">
-                <h2 className="text-2xl font-bold my-5">Top Billed Cast</h2>
-                <div className="flex overflow-x-scroll">
-                  {cast?.length === 0 && <div>No cast found</div>}
-                  {cast &&
-                    cast?.map((cast) => (
-                      <div className="mx-3 mb-4" key={cast?.id}>
-                        <img
-                          className="rounded-md max-w-[157px]"
-                          src={creatImageUrl(cast?.profile_path, "w300")}
-                          alt={cast?.name}
-                        />
-                        <p className="font-bold pt-3 pl-3">{cast?.name}</p>
-                        <p className="pl-3">{cast?.character}</p>
+              <div className="m-2 px-5 w-full">
+                <h2 className="py-3 text-5xl font-bold">{title}</h2>
+                <div>
+                  <span>{releaseDate}</span>
+                  <span> | </span>
+                  <span>{runtime} Min</span>
+                  <span className="flex">
+                    {details?.genres?.map((genre) => (
+                      <div
+                        key={genre?.id}
+                        className="px-3 border-2 mt-3 mr-2 border-slate-500 rounded-full"
+                      >
+                        {genre?.name}
                       </div>
                     ))}
+                  </span>
+                </div>
+                <div className="my-4 italic text-slate-300 text-lg">
+                  {details.tagline}
+                </div>
+                <span>{details.vote_average?.toFixed(1)}/10</span>
+
+                <div className="mb-2 py-2 max-w-screen-md">
+                  <h3 className="text-lg font-bold">Overview</h3>
+                  {details.overview}
                 </div>
               </div>
             </div>
+            <div className="m-7 p-5 flex-row">
+              <h2 className="text-2xl font-bold my-5">Top Billed Cast</h2>
+              <div className="flex overflow-x-scroll">
+                {cast?.length === 0 && <div>No cast found</div>}
+                {cast &&
+                  cast?.map((cast) => (
+                    <div className="mx-3 mb-4" key={cast?.id}>
+                      <img
+                        className="rounded-md max-w-[157px]"
+                        src={creatImageUrl(cast?.profile_path, "w300")}
+                        alt={cast?.name}
+                      />
+                      <p className="font-bold pt-3 pl-3">{cast?.name}</p>
+                      <p className="pl-3">{cast?.character}</p>
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
-          <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 mx-14 my-20 py-5">
-            <div className="h-[550px] w-[70%]">{player}</div>
-          </div>
+        </div>
+        <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 mx-14 my-20 py-5">
+          <div className="h-[550px] w-[70%]">{player}</div>
         </div>
       </div>
     </>
