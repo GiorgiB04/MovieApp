@@ -39,6 +39,11 @@ const Movies = () => {
             ))}
         </div>
       </div>
+      <Pagination
+        activePage={activePage}
+        totalPages={totalPages}
+        setActivePage={setActivePage}
+      />
     </>
   );
 };

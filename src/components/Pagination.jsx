@@ -1,5 +1,4 @@
 import React from "react";
-//pagination
 
 function Pagination({ activePage, totalPages, setActivePage }) {
   return (

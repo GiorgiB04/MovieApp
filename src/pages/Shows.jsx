@@ -39,6 +39,11 @@ const Shows = () => {
             ))}
         </div>
       </div>
+      <Pagination
+        activePage={activePage}
+        totalPages={totalPages}
+        setActivePage={setActivePage}
+      />
     </>
   );
 };
