@@ -63,11 +63,7 @@ const Search = () => {
       </div>
       <div className="flex justify-center">
         {data?.length > 0 && !isLoading && (
-          <Pagination
-            activePage={activePage}
-            totalPages={totalPages}
-            setActivePage={setActivePage}
-          />
+
         )}
       </div>
     </>
