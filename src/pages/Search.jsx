@@ -61,11 +61,6 @@ const Search = () => {
             ))}
         </div>
       </div>
-      <div className="flex justify-center">
-        {data?.length > 0 && !isLoading && (
-
-        )}
-      </div>
     </>
   );
 };
