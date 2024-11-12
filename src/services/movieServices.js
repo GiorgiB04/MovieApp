@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const key = c682ea28bbe277b0385c21c1291859b4;
+export const key = import.meta.env.VITE_TMDB_KEY;
 export const baseUrl = "https://api.themoviedb.org/3";
 export const imgUrl = "https://image.tmdb.org/t/p";
 export const popularMovies = baseUrl + `/movie/popular?api_key=` + key;
