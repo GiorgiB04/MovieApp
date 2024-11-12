@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { searchData } from "../services/movieServices";
-import Pagination from "../components/pagination";
+import Pagination from "../components/paginations";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");

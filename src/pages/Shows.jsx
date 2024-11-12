@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { fetchShows } from "../services/movieServices";
-import Pagination from "../components/pagination";
+import Pagination from "../components/paginations";
 
 const Shows = () => {
   const [shows, setShows] = useState([]);
