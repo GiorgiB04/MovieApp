@@ -32,7 +32,7 @@ const Movies = () => {
         </div>
       )}
       <div className="mt-4 mx-2 flex justify-center">
-        <div className="px-2 grid lg:grid-cols-5 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2">
+        <div className="px-2 grid lg:grid-cols-10 md:grid-cols-10 xs:grid-cols-4 sm:grid-cols-4">
           {movies &&
             movies?.map((item) => (
               <Card key={item?.id} item={item} type={"movie"} />
