@@ -127,7 +127,7 @@ const Details = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 mx-14 my-20 py-5">
+        <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2">
           <div className="lg:w-[900px] lg:h-[450px] md:w-[700px] md:h-[350px] w-[100%] h-[250px]">
             {player}
           </div>
