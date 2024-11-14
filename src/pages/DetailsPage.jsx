@@ -128,7 +128,9 @@ const Details = () => {
           </div>
         </div>
         <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 mx-14 my-20 py-5">
-          <div className="h-[550px] w-[70%]">{player}</div>
+          <div className="lg:w-[900px] lg:h-[450px] md:w-[700px] md:h-[350px] sm:w-[350px] sm:h-[150px]">
+            {player}
+          </div>
         </div>
       </div>
     </>
