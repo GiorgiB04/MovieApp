@@ -7,7 +7,7 @@ const Card = ({ item, type }) => {
 
   return (
     <Link to={`/${type}/${item.id}`}>
-      <div className="relative w-[135px] inline-block rounded-md m-3 overflow-hidden">
+      <div className="relative w-[170px] inline-block rounded-md m-3 overflow-hidden">
         <img
           src={creatImageUrl(item?.poster_path, "w300")}
           alt={title || item?.name}
