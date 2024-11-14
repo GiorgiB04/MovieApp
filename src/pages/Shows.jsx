@@ -31,8 +31,8 @@ const Shows = () => {
           <div className="rounded-full h-20 w-20 bg-slate-500 animate-ping"></div>
         </div>
       )}
-      <div className="mt-4 mx-2 flex justify-center">
-        <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-7 xs:grid-cols-2 sm:grid-cols-2">
+      <div className="mt-8 mx-2 flex justify-center">
+        <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-5 xs:grid-cols-2 grid-cols-2">
           {shows &&
             shows?.map((item) => (
               <Card key={item?.id} item={item} type={"tv"} />

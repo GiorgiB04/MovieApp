@@ -53,8 +53,8 @@ const Search = () => {
           )}
         </div>
       </div>
-      <div className="mt-4 mx-2 flex justify-center">
-        <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-7 xs:grid-cols-2 sm:grid-cols-2">
+      <div className="mt-8 mx-2 flex justify-center">
+        <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-5 xs:grid-cols-2 grid-cols-2">
           {data &&
             data?.map((item) => (
               <Card key={item?.id} item={item} type={item?.media_type} />
