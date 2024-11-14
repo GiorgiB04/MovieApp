@@ -65,7 +65,7 @@ const Details = () => {
           <div className="rounded-full h-20 w- bg-slate-500 animate-ping"></div>
         </div>
       )}
-      <div>
+      <div className="">
         <div className="top-0 right-0 left-0 bottom-0">
           <div
             className="w-[100%] h-[auto] bg-gradient-to-r bg-cover bg-no-repeat 
@@ -109,7 +109,7 @@ const Details = () => {
             </div>
             <div className="m-7 p-5 flex-row">
               <h2 className="text-2xl font-bold my-5">Top Billed Cast</h2>
-              <div className="flex overflow-x-scroll">
+              <div className="flex overflow-x-auto">
                 {cast?.length === 0 && <div>No cast found</div>}
                 {cast &&
                   cast?.map((cast) => (

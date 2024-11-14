@@ -53,7 +53,7 @@ const Home = () => {
               <div className="rounded-full h-20 w-20 bg-slate-500 animate-ping"></div>
             </div>
           )}
-          <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-5 sm:grid-cols-2 xs:grid-cols-3">
+          <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-5 xs:grid-cols-2 sm:grid-cols-2">
             {data &&
               data?.map((item) => (
                 <Card key={item?.id} item={item} type={item?.media_type} />
