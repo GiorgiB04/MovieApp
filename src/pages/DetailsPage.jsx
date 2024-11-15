@@ -65,13 +65,21 @@ const Details = () => {
           <div className="rounded-full h-20 w- bg-slate-500 animate-ping"></div>
         </div>
       )}
-      <div className="">
-        <div className="top-0 right-0 left-0 bottom-0">
+      <div>
+        <div
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(31.5, 31.5, 31.5, 1) calc((50vw - 170px) - 340px), rgba(31.5, 31.5, 31.5, 0.84) 50%, rgba(31.5, 31.5, 31.5, 0.84) 100%), url(${bg_cover})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+          className="top-0 right-0 left-0 bottom-0"
+        >
           <div
-            className="w-[100%] h-[auto] bg-gradient-to-r bg-cover bg-no-repeat 
+            className="w-[100%] bg-gradient-to-tl h-[auto] bg-cover bg-no-repeat 
   bg-center"
           >
-            <div className="m-7 p-5 flex ">
+            <div className="mx-7 p-7 flex ">
               <div className=" w-[280px] rounded-lg m-2 overflow-hidden ">
                 <img
                   className=""
