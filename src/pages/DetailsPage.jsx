@@ -79,8 +79,8 @@ const Details = () => {
             className="w-[100%] bg-gradient-to-tl h-[auto] bg-cover bg-no-repeat 
   bg-center"
           >
-            <div className="mx-7 p-7 flex ">
-              <div className=" w-[280px] rounded-lg m-2 overflow-hidden ">
+            <div className="mx-7 md:p-7 flex ">
+              <div className="hidden md:block w-[280px] rounded-lg m-2 overflow-hidden ">
                 <img
                   className=""
                   src={imgUrl + "/w300" + details.poster_path}
