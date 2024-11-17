@@ -12,7 +12,7 @@ export function creatImageUrl(filename, size) {
 //Discover movies
 export const fetchMovies = async (page) => {
   const res = await axios.get(
-    `${baseUrl}/discover/movie?api_key=${key}&page=${page}`
+    `${baseUrl}/discover/movie?api_key=${key}&vote_count.gte=100&page=${page}`
   );
   return res.data;
 };
@@ -20,7 +20,7 @@ export const fetchMovies = async (page) => {
 //Discover shows
 export const fetchShows = async (page) => {
   const res = await axios.get(
-    `${baseUrl}/discover/tv?api_key=${key}&page=${page}`
+    `${baseUrl}/discover/tv?api_key=${key}&vote_count.gte=100&page=${page}`
   );
   return res.data;
 };
@@ -35,7 +35,9 @@ export const fetchTrending = async (timeWindow = "day") => {
 
 //Movies & TV-Series Details
 export const fetchDetails = async (type, id) => {
-  const res = await axios.get(`${baseUrl}/${type}/${id}?api_key=${key}`);
+  const res = await axios.get(
+    `${baseUrl}/${type}/${id}?api_key=${key}&vote_count.gte=100`
+  );
   return res.data;
 };
 
