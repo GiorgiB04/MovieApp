@@ -4,7 +4,6 @@ function Pagination({ activePage, totalPages, setActivePage }) {
   return (
     <div className="flex justify-center">
       <div className="flex my-5">
-        {" "}
         <button
           onClick={() => setActivePage(1)}
           disabled={activePage === 1}
