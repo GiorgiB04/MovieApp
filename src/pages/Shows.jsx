@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import Card from "../components/Card";
 import { fetchShows } from "../services/movieServices";
 import Pagination from "../components/paginations";
@@ -6,7 +7,7 @@ import Pagination from "../components/paginations";
 const Shows = () => {
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activePage, setActivePage] = useState([1]);
+  const [activePage, setActivePage] = useLocalStorage("activePage", 1);
   const [totalPages, settotalPages] = useState([1]);
 
   useEffect(() => {
