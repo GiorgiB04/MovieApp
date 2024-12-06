@@ -6,6 +6,7 @@ import {
   creatImageUrl,
 } from "../services/movieServices";
 import { useParams } from "react-router-dom";
+import { ratingColor } from "../services/helpers";
 
 const Details = () => {
   const [details, setDetails] = useState({});
@@ -107,7 +108,9 @@ const Details = () => {
                 <div className="my-4 italic text-slate-300 text-lg">
                   {details.tagline}
                 </div>
-                <span>{details.vote_average?.toFixed(1)}/10</span>
+                <span className={ratingColor(details?.vote_average)}>
+                  {details.vote_average?.toFixed(1)}
+                </span>
 
                 <div className="mb-2 py-2 max-w-screen-md">
                   <h3 className="text-lg font-bold">Overview</h3>
