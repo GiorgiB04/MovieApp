@@ -80,7 +80,7 @@ const Details = () => {
             className="w-[100%] bg-gradient-to-tl h-[auto] bg-cover bg-no-repeat 
   bg-center"
           >
-            <div className="md:mx-7 md:p-7 flex ">
+            <div className="md:mx-7 md:p-7 flex">
               <div className="hidden md:block w-[280px] rounded-lg m-2 overflow-hidden ">
                 <img
                   className=""
@@ -121,19 +121,27 @@ const Details = () => {
             <div className="m-7 p-5 flex-row">
               <h2 className="text-2xl font-bold my-5">Top Billed Cast</h2>
               <div className="flex overflow-x-auto">
-                {cast?.length === 0 && <div>No cast found</div>}
-                {cast &&
-                  cast?.map((cast) => (
-                    <div className="mx-3 mb-4" key={cast?.id}>
-                      <img
-                        className="rounded-md max-w-[157px]"
-                        src={creatImageUrl(cast?.profile_path, "w300")}
-                        alt={cast?.name}
-                      />
-                      <p className="font-bold pt-3 pl-3">{cast?.name}</p>
-                      <p className="pl-3">{cast?.character}</p>
-                    </div>
-                  ))}
+                {cast?.filter((member) => member?.profile_path).length === 0 ? (
+                  <div>No cast found</div>
+                ) : (
+                  cast
+                    ?.filter((member) => member?.profile_path) // Filter out items with null profile_path
+                    .map((member) => (
+                      <div className="mx-3 mb-4" key={member?.id}>
+                        <img
+                          className="rounded-md max-w-[157px]"
+                          src={creatImageUrl(member?.profile_path, "w300")}
+                          alt={member?.name || "Cast Member"}
+                        />
+                        <p className="font-bold pt-3 pl-3">
+                          {member?.name || "Unknown Name"}
+                        </p>
+                        <p className="pl-3">
+                          {member?.character || "Unknown Character"}
+                        </p>
+                      </div>
+                    ))
+                )}
               </div>
             </div>
           </div>
