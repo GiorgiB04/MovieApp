@@ -10,17 +10,17 @@ export function creatImageUrl(filename, size) {
 }
 
 //Discover movies
-export const fetchMovies = async (page) => {
+export const fetchMovies = async (page, sortBy) => {
   const res = await axios.get(
-    `${baseUrl}/discover/movie?api_key=${key}&vote_count.gte=100&page=${page}`
+    `${baseUrl}/discover/movie?api_key=${key}&page=${page}&sort_by=${sortBy}`
   );
   return res.data;
 };
 
 //Discover shows
-export const fetchShows = async (page) => {
+export const fetchShows = async (page, sortBy) => {
   const res = await axios.get(
-    `${baseUrl}/discover/tv?api_key=${key}&vote_count.gte=100&page=${page}`
+    `${baseUrl}/discover/tv?api_key=${key}&page=${page}&sort_by=${sortBy}`
   );
   return res.data;
 };
