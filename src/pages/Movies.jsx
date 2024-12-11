@@ -34,13 +34,23 @@ const Movies = () => {
         </div>
       )}
       {error && <div className="text-red-500 text-center mt-4">{error}</div>}
-      <div className="mt-8 mx-2 flex justify-center">
-        <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-5 xs:grid-cols-2 grid-cols-2">
-          {movies?.length > 0
-            ? movies.map((item) => (
-                <Card key={item?.id} item={item} type={"movie"} />
-              ))
-            : !loading && <p className="text-center">No movies found.</p>}
+      <div className="container mx-auto">
+        <select
+          className="pt-4 mt-7 rounded-2xl dark:bg-slate-800"
+          name=""
+          id=""
+        >
+          <option value="">rating</option>
+          <option value="">rating</option>
+        </select>
+        <div className="mt-8 justify-center">
+          <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-5 xs:grid-cols-2 grid-cols-2">
+            {movies?.length > 0
+              ? movies.map((item) => (
+                  <Card key={item?.id} item={item} type={"movie"} />
+                ))
+              : !loading && <p className="text-center">No movies found.</p>}
+          </div>
         </div>
       </div>
       <Pagination

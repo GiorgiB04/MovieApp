@@ -45,14 +45,21 @@ const Details = () => {
   const player =
     type === "tv" ? (
       <iframe
-        src={"https://embed.su/embed/tv/" + id + "/1" + "/1"}
+        src={
+          "https://multiembed.mov/directstream.php?video_id=" +
+          id +
+          "&tmdb=1" +
+          "&s=1&e=1"
+        }
         width="100%"
         height="100%"
         allowFullScreen
       ></iframe>
     ) : (
       <iframe
-        src={"https://embed.su/embed/movie/" + id}
+        src={
+          "https://multiembed.mov/directstream.php?video_id=" + id + "&tmdb=1"
+        }
         width="100%"
         height="100%"
         allowFullScreen
@@ -147,8 +154,8 @@ const Details = () => {
           </div>
         </div>
         <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 my-20 py-5">
-          <div className="lg:w-[900px] lg:h-[450px] md:w-[700px] md:h-[350px] w-[100%] h-[250px]">
-            {player}
+          <div className="lg:w-[1000px] lg:h-[450px] md:w-[700px] md:h-[350px] w-[100%] h-[250px]">
+            {player ? player : <p>Video content is unavailable.</p>}
           </div>
         </div>
       </div>
