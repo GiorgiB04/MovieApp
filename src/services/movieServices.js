@@ -20,7 +20,7 @@ export const fetchMovies = async (page, sortBy) => {
 //Discover shows
 export const fetchShows = async (page, sortBy) => {
   const res = await axios.get(
-    `${baseUrl}/discover/tv?api_key=${key}&include_adult=false&include_null_first_air_dates=false&page=${page}&sort_by=${sortBy}`
+    `${baseUrl}/discover/tv?api_key=${key}&include_adult=false&include_null_first_air_dates=falsee&language=en-US&page=${page}&sort_by=${sortBy}`
   );
   return res.data;
 };
