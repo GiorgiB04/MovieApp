@@ -45,21 +45,14 @@ const Details = () => {
   const player =
     type === "tv" ? (
       <iframe
-        src={
-          "https://multiembed.mov/directstream.php?video_id=" +
-          id +
-          "&tmdb=1" +
-          "&s=1&e=1"
-        }
+        src={"https://embed.su/embed/tv/" + id + "/1/" + "1"}
         width="100%"
         height="100%"
         allowFullScreen
       ></iframe>
     ) : (
       <iframe
-        src={
-          "https://multiembed.mov/directstream.php?video_id=" + id + "&tmdb=1"
-        }
+        src={"https://embed.su/embed/movie/" + id}
         width="100%"
         height="100%"
         allowFullScreen
