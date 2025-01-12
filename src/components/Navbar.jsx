@@ -6,7 +6,7 @@ function Navbar() {
     <div className="w-full p-5 nav flex flex-wrap shadow-md">
       <Link to={"/"}>
         <div className="mr-7 uppercase text-cyan-700 font-bold pointer text-3xl ">
-          FreeMovies
+          Gfilmy
         </div>
       </Link>
       <div className="mx-4 flex flex-wrap items-center">
