@@ -12,7 +12,7 @@ export function creatImageUrl(filename, size) {
 //Discover movies
 export const fetchMovies = async (page, sortBy) => {
   const res = await axios.get(
-    `${baseUrl}/discover/movie?api_key=${key}&include_adult=false&page=${page}&sort_by=${sortBy}`
+    `${baseUrl}/discover/movie?api_key=${key}&include_adult=false&language=en-US&page=${page}&sort_by=${sortBy}`
   );
   return res.data;
 };
