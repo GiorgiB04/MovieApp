@@ -12,7 +12,7 @@ export function creatImageUrl(filename, size) {
 //Discover movies
 export const fetchMovies = async (page, sortBy) => {
   const res = await axios.get(
-    `${baseUrl}/discover/movie?api_key=${key}&include_adult=false&language=en-US&page=${page}&sort_by=${sortBy}`
+    `${baseUrl}/discover/movie?api_key=${key}&page=${page}&sort_by=${sortBy}`
   );
   return res.data;
 };
@@ -20,7 +20,7 @@ export const fetchMovies = async (page, sortBy) => {
 //Discover shows
 export const fetchShows = async (page, sortBy) => {
   const res = await axios.get(
-    `${baseUrl}/discover/tv?api_key=${key}&include_adult=false&language=en-US&page=${page}&sort_by=${sortBy}`
+    `${baseUrl}/discover/tv?api_key=${key}&page=${page}&sort_by=${sortBy}`
   );
   return res.data;
 };
@@ -35,9 +35,7 @@ export const fetchTrending = async (timeWindow = "day") => {
 
 //Movies & TV-Series Details
 export const fetchDetails = async (type, id) => {
-  const res = await axios.get(
-    `${baseUrl}/${type}/${id}?api_key=${key}&vote_count.gte=100`
-  );
+  const res = await axios.get(`${baseUrl}/${type}/${id}?api_key=${key}`);
   return res.data;
 };
 

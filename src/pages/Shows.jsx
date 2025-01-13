@@ -46,7 +46,7 @@ const Shows = () => {
             >
               <option
                 className="border-slate-500 rounded-full"
-                value="popularity.desc&vote_count.gte=100&without_genres=10763%2C%2010764"
+                value="popularity.desc&vote_count.gte=100"
               >
                 Popular
               </option>

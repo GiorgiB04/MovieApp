@@ -46,7 +46,7 @@ const Movies = () => {
             >
               <option
                 className="border-slate-500 rounded-full"
-                value="popularity.desc"
+                value="popularity.desc&vote_count.gte=100"
               >
                 Popular
               </option>
