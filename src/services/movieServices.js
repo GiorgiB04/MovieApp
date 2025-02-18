@@ -9,6 +9,9 @@ export function creatImageUrl(filename, size) {
   return `https://image.tmdb.org/t/p/${size}${filename}`;
 }
 
+// Genre IDs to exclude: Talk, Reality, Family, Soap
+const excludedGenres = "10767,10764,10751,10766,10763";
+
 //Discover movies
 export const fetchMovies = async (page, sortBy) => {
   const res = await axios.get(
@@ -20,7 +23,7 @@ export const fetchMovies = async (page, sortBy) => {
 //Discover shows
 export const fetchShows = async (page, sortBy) => {
   const res = await axios.get(
-    `${baseUrl}/discover/tv?api_key=${key}&page=${page}&sort_by=${sortBy}`
+    `${baseUrl}/discover/tv?api_key=${key}&page=${page}&sort_by=${sortBy}&without_genres=${excludedGenres}`
   );
   return res.data;
 };
