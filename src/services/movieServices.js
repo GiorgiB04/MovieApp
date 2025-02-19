@@ -27,11 +27,17 @@ export const fetchGenres = async () => {
 };
 
 //Discover shows
-export const fetchShows = async (page, sortBy) => {
+export const fetchShows = async (page, sortBy, genreId = "") => {
+  const genreParam = genreId ? `&with_genres=${genreId}` : "";
   const res = await axios.get(
-    `${baseUrl}/discover/tv?api_key=${key}&page=${page}&sort_by=${sortBy}&without_genres=${excludedGenres}`
+    `${baseUrl}/discover/tv?api_key=${key}&page=${page}&sort_by=${sortBy}${genreParam}`
   );
   return res.data;
+};
+
+export const fetchTvGenres = async () => {
+  const res = await axios.get(`${baseUrl}/genre/tv/list?api_key=${key}`);
+  return res.data.genres;
 };
 
 //Tranding movies and tv-series
