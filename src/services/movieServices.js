@@ -13,11 +13,17 @@ export function creatImageUrl(filename, size) {
 const excludedGenres = "10767,10764,10751,10766,10763";
 
 //Discover movies
-export const fetchMovies = async (page, sortBy) => {
+export const fetchMovies = async (page, sortBy, genreId = "") => {
+  const genreParam = genreId ? `&with_genres=${genreId}` : "";
   const res = await axios.get(
-    `${baseUrl}/discover/movie?api_key=${key}&page=${page}&sort_by=${sortBy}`
+    `${baseUrl}/discover/movie?api_key=${key}&page=${page}&sort_by=${sortBy}${genreParam}`
   );
   return res.data;
+};
+
+export const fetchGenres = async () => {
+  const res = await axios.get(`${baseUrl}/genre/movie/list?api_key=${key}`);
+  return res.data.genres;
 };
 
 //Discover shows
