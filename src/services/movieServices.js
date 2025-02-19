@@ -27,10 +27,11 @@ export const fetchGenres = async () => {
 };
 
 //Discover shows
+// Fetch TV Shows (excluding specific genres)
 export const fetchShows = async (page, sortBy, genreId = "") => {
   const genreParam = genreId ? `&with_genres=${genreId}` : "";
   const res = await axios.get(
-    `${baseUrl}/discover/tv?api_key=${key}&page=${page}&sort_by=${sortBy}${genreParam}`
+    `${baseUrl}/discover/tv?api_key=${key}&page=${page}&sort_by=${sortBy}${genreParam}&without_genres=${excludedGenres}`
   );
   return res.data;
 };
