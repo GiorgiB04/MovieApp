@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+<script src="webtorrent.min.js"></script>;
 import {
   imgUrl,
   fetchDetails,
@@ -13,21 +14,27 @@ const Details = () => {
   const { id, type } = useParams();
   const [cast, setCast] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [magnetLink, setMagnetLink] = useState(""); // Store the torrent link
+  const videoRef = useRef(null); // Reference for video element
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [detailsDeta, creditsData] = await Promise.all([
+        const [detailsData, creditsData] = await Promise.all([
           fetchDetails(type, id),
           fetchCredits(type, id),
         ]);
-        //set Details
-        setDetails(detailsDeta);
-        //set Cast
-        console.log(cast, "cast");
+
+        setDetails(detailsData);
         setCast(creditsData?.cast?.slice(0, 10));
+
+        // Fetch torrent automatically when details are available
+        fetchTorrents(
+          detailsData.title || detailsData.name,
+          detailsData.release_date
+        );
       } catch (error) {
-        console.log(error, "erorr");
+        console.error("Error fetching movie details:", error);
       } finally {
         setLoading(false);
       }
@@ -35,29 +42,46 @@ const Details = () => {
     fetchData();
   }, [type, id]);
 
-  console.log(cast, "cast");
+  // Function to fetch torrents automatically
+  const fetchTorrents = async (title, releaseDate) => {
+    try {
+      const query = encodeURIComponent(
+        `${title} ${releaseDate?.split("-")[0]} 1080p`
+      );
+      const response = await fetch(`https://apibay.org/q.php?q=${query}`);
+      const torrents = await response.json();
+
+      if (torrents.length > 0) {
+        const bestTorrent = torrents.sort((a, b) => b.seeders - a.seeders)[0]; // Get the best torrent
+        const magnet = `magnet:?xt=urn:btih:${bestTorrent.info_hash}`;
+        setMagnetLink(magnet); // Set the magnet link
+        startStreaming(magnet);
+      } else {
+        console.log("No torrents found.");
+      }
+    } catch (error) {
+      console.error("Error fetching torrents:", error);
+    }
+  };
+
+  // Function to start streaming using WebTorrent
+  const startStreaming = (magnetURI) => {
+    const client = new WebTorrent();
+    client.add(magnetURI, (torrent) => {
+      const file = torrent.files.find(
+        (f) => f.name.endsWith(".mp4") || f.name.endsWith(".mkv")
+      );
+      if (file) {
+        file.renderTo(videoRef.current);
+      }
+    });
+  };
 
   const bg_cover = imgUrl + "/original" + details.backdrop_path;
   const title = details?.title || details?.name;
   const releaseDate =
     type === "tv" ? details?.first_air_date : details?.release_date;
   const runtime = details?.runtime;
-  const player =
-    type === "tv" ? (
-      <iframe
-        src={"https://embed.su/embed/tv/" + id + "/1/" + "1"}
-        width="100%"
-        height="100%"
-        allowFullScreen
-      ></iframe>
-    ) : (
-      <iframe
-        src={"https://embed.su/embed/movie/" + id}
-        width="100%"
-        height="100%"
-        allowFullScreen
-      ></iframe>
-    );
 
   return (
     <>
@@ -76,10 +100,7 @@ const Details = () => {
           }}
           className="top-0 right-0 left-0 bottom-0"
         >
-          <div
-            className="w-[100%] bg-gradient-to-tl h-[auto] bg-cover bg-no-repeat 
-  bg-center"
-          >
+          <div className="w-[100%] bg-gradient-to-tl h-[auto] bg-cover bg-no-repeat bg-center">
             <div className="md:mx-7 md:p-7 flex">
               <div className="hidden md:block w-[280px] rounded-lg m-2 overflow-hidden ">
                 <img
@@ -111,7 +132,6 @@ const Details = () => {
                 <span className={ratingColor(details?.vote_average)}>
                   {details.vote_average?.toFixed(1)}
                 </span>
-
                 <div className="mb-2 py-2 max-w-screen-md">
                   <h3 className="text-lg font-bold">Overview</h3>
                   {details.overview}
@@ -125,7 +145,7 @@ const Details = () => {
                   <div>No cast found</div>
                 ) : (
                   cast
-                    ?.filter((member) => member?.profile_path) // Filter out items with null profile_path
+                    ?.filter((member) => member?.profile_path)
                     .map((member) => (
                       <div className="mx-3 mb-4" key={member?.id}>
                         <img
@@ -148,7 +168,13 @@ const Details = () => {
         </div>
         <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 my-20 py-5">
           <div className="lg:w-[1000px] lg:h-[450px] md:w-[700px] md:h-[350px] w-[100%] h-[250px]">
-            {player ? player : <p>Video content is unavailable.</p>}
+            {magnetLink ? (
+              <video ref={videoRef} controls width="100%" height="100%">
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <p>No torrent available.</p>
+            )}
           </div>
         </div>
       </div>
