@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+<script src="webtorrent.min.js"></script>;
 import {
   imgUrl,
   fetchDetails,
   fetchCredits,
   creatImageUrl,
-  key,
 } from "../services/movieServices";
 import { useParams } from "react-router-dom";
 import { ratingColor } from "../services/helpers";
@@ -13,111 +13,47 @@ const Details = () => {
   const [details, setDetails] = useState({});
   const { id, type } = useParams();
   const [cast, setCast] = useState([]);
-  const [director, setDirector] = useState("");
-  const [writer, setWriter] = useState("");
-  const [creator, setCreator] = useState("");
   const [loading, setLoading] = useState(true);
-  const [season, setSeason] = useState(1);
-  const [episode, setEpisode] = useState(1);
-  const [totalEpisodes, setTotalEpisodes] = useState(20); // Default to 20
-
-  // Fetch season details dynamically
-  const fetchSeasonDetails = async (selectedSeason) => {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/tv/${id}/season/${selectedSeason}?api_key=${key}`
-      );
-      const data = await response.json();
-      setTotalEpisodes(data.episodes.length || 20); // Update total episodes
-    } catch (error) {
-      console.error("Error fetching season details:", error);
-      setTotalEpisodes(20); // Fallback value
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [detailsData, creditsData] = await Promise.all([
+        const [detailsDeta, creditsData] = await Promise.all([
           fetchDetails(type, id),
           fetchCredits(type, id),
         ]);
-
-        // Set Details
-        setDetails(detailsData);
-
-        // Set Cast
+        //set Details
+        setDetails(detailsDeta);
+        //set Cast
+        console.log(cast, "cast");
         setCast(creditsData?.cast?.slice(0, 10));
-
-        // Extract Director (for Movies)
-        if (type === "movie") {
-          const foundDirector = creditsData.crew.find(
-            (person) => person.job === "Director"
-          );
-          setDirector(foundDirector ? foundDirector.name : "Unknown");
-        }
-
-        // Extract Writers (for Movies & TV)
-        const foundWriters = creditsData.crew
-          .filter(
-            (person) =>
-              person.job === "Writer" ||
-              person.job === "Screenplay" ||
-              person.job === "Story" ||
-              person.department === "Writing"
-          )
-          .map((writer) => writer.name)
-          .join(", ");
-
-        setWriter(foundWriters || "Unknown");
-
-        // Extract Creator (for TV Shows)
-        if (type === "tv") {
-          setCreator(
-            detailsData?.created_by?.length > 0
-              ? detailsData.created_by.map((creator) => creator.name).join(", ")
-              : "Unknown"
-          );
-        }
-
-        // Fetch season details for the first season
-        if (type === "tv") {
-          fetchSeasonDetails(1);
-        }
       } catch (error) {
-        console.log(error, "error");
+        console.log(error, "erorr");
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [type, id]);
 
-  // Fetch episode count when season changes
-  useEffect(() => {
-    if (type === "tv") {
-      fetchSeasonDetails(season);
-    }
-  }, [season]);
+  console.log(cast, "cast");
 
   const bg_cover = imgUrl + "/original" + details.backdrop_path;
   const title = details?.title || details?.name;
   const releaseDate =
     type === "tv" ? details?.first_air_date : details?.release_date;
   const runtime = details?.runtime;
-
   const player =
     type === "tv" ? (
       <iframe
-        src={`https://vidlink.pro/tv/${id}/${season}/${episode}?autoplay=false`}
+        src={"https://embed.su/embed/tv/" + id + "/1/" + "1"}
         width="100%"
         height="100%"
         allowFullScreen
       ></iframe>
     ) : (
       <iframe
-        src={`https://vidlink.pro/movie/${id}?autoplay=false`}
+        src={"https://embed.su/embed/movie/" + id}
         width="100%"
         height="100%"
         allowFullScreen
@@ -181,19 +117,6 @@ const Details = () => {
                   <h3 className="text-lg font-bold">Overview</h3>
                   {details.overview}
                 </div>
-                <div className="mb-2 py-2 max-w-screen-md">
-                  {type === "movie" && (
-                    <p>
-                      <strong>Director: </strong> {director}
-                      <strong className="ml-8">Writers:</strong> {writer}
-                    </p>
-                  )}
-                  {type === "tv" && (
-                    <p>
-                      <strong>Creator:</strong> {creator}
-                    </p>
-                  )}
-                </div>
               </div>
             </div>
             <div className="m-7 p-5 flex-row">
@@ -224,46 +147,7 @@ const Details = () => {
             </div>
           </div>
         </div>
-
-        {/* Season & Episode Selector */}
-        {type === "tv" && (
-          <div className="flex justify-center gap-4 my-10">
-            <label className="font-bold">
-              Season:
-              <select
-                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500"
-                value={season}
-                onChange={(e) => setSeason(Number(e.target.value))}
-              >
-                {Array.from(
-                  { length: details?.number_of_seasons || 10 },
-                  (_, i) => (
-                    <option key={i + 1} value={i + 1}>
-                      {i + 1}
-                    </option>
-                  )
-                )}
-              </select>
-            </label>
-
-            <label className="font-bold">
-              Episode:
-              <select
-                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500"
-                value={episode}
-                onChange={(e) => setEpisode(Number(e.target.value))}
-              >
-                {Array.from({ length: totalEpisodes }, (_, i) => (
-                  <option key={i + 1} value={i + 1}>
-                    {i + 1}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        )}
-
-        <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 my-10">
+        <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 my-20 py-5">
           <div className="lg:w-[1000px] lg:h-[450px] md:w-[700px] md:h-[350px] w-[100%] h-[250px]">
             {player ? player : <p>Video content is unavailable.</p>}
           </div>
