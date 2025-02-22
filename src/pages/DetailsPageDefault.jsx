@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-<script src="webtorrent.min.js"></script>;
 import {
   imgUrl,
   fetchDetails,
