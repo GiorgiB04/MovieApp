@@ -13,29 +13,68 @@ const Details = () => {
   const { id, type } = useParams();
   const [cast, setCast] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [director, setDirector] = useState("");
+  const [writer, setWriter] = useState("");
+  const [creator, setCreator] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [detailsDeta, creditsData] = await Promise.all([
+        const [detailsData, creditsData] = await Promise.all([
           fetchDetails(type, id),
           fetchCredits(type, id),
         ]);
-        //set Details
-        setDetails(detailsDeta);
-        //set Cast
-        console.log(cast, "cast");
+
+        // Set Details
+        setDetails(detailsData);
+
+        // Set Cast
         setCast(creditsData?.cast?.slice(0, 10));
+
+        // Extract Director (for Movies)
+        if (type === "movie") {
+          const foundDirector = creditsData.crew.find(
+            (person) => person.job === "Director"
+          );
+          setDirector(foundDirector ? foundDirector.name : "Unknown");
+        }
+
+        // Extract Writers (for Movies & TV)
+        const foundWriters = creditsData.crew
+          .filter(
+            (person) =>
+              person.job === "Writer" ||
+              person.job === "Screenplay" ||
+              person.job === "Story" ||
+              person.department === "Writing"
+          )
+          .map((writer) => writer.name)
+          .join(", ");
+
+        setWriter(foundWriters || "Unknown");
+
+        // Extract Creator (for TV Shows)
+        if (type === "tv") {
+          setCreator(
+            detailsData?.created_by?.length > 0
+              ? detailsData.created_by.map((creator) => creator.name).join(", ")
+              : "Unknown"
+          );
+        }
+
+        // Fetch season details for the first season
+        if (type === "tv") {
+          fetchSeasonDetails(1);
+        }
       } catch (error) {
-        console.log(error, "erorr");
+        console.log(error, "error");
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
   }, [type, id]);
-
-  console.log(cast, "cast");
 
   const bg_cover = imgUrl + "/original" + details.backdrop_path;
   const title = details?.title || details?.name;
@@ -115,6 +154,19 @@ const Details = () => {
                 <div className="mb-2 py-2 max-w-screen-md">
                   <h3 className="text-lg font-bold">Overview</h3>
                   {details.overview}
+                </div>
+                <div className="mb-2 py-2 max-w-screen-md">
+                  {type === "movie" && (
+                    <p>
+                      <strong>Director: </strong> {director}
+                      <strong className="ml-8">Writers:</strong> {writer}
+                    </p>
+                  )}
+                  {type === "tv" && (
+                    <p>
+                      <strong>Creator:</strong> {creator}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
