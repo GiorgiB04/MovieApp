@@ -4,6 +4,7 @@ import {
   fetchDetails,
   fetchCredits,
   creatImageUrl,
+  key,
 } from "../services/movieServices";
 import { useParams } from "react-router-dom";
 import { ratingColor } from "../services/helpers";
@@ -12,10 +13,27 @@ const Details = () => {
   const [details, setDetails] = useState({});
   const { id, type } = useParams();
   const [cast, setCast] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [director, setDirector] = useState("");
   const [writer, setWriter] = useState("");
   const [creator, setCreator] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [season, setSeason] = useState(1);
+  const [episode, setEpisode] = useState(1);
+  const [totalEpisodes, setTotalEpisodes] = useState(20); // Default to 20
+
+  // Fetch season details dynamically
+  const fetchSeasonDetails = async (selectedSeason) => {
+    try {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/tv/${id}/season/${selectedSeason}?api_key=${key}`
+      );
+      const data = await response.json();
+      setTotalEpisodes(data.episodes.length || 20); // Update total episodes
+    } catch (error) {
+      console.error("Error fetching season details:", error);
+      setTotalEpisodes(20); // Fallback value
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,22 +94,30 @@ const Details = () => {
     fetchData();
   }, [type, id]);
 
+  // Fetch episode count when season changes
+  useEffect(() => {
+    if (type === "tv") {
+      fetchSeasonDetails(season);
+    }
+  }, [season]);
+
   const bg_cover = imgUrl + "/original" + details.backdrop_path;
   const title = details?.title || details?.name;
   const releaseDate =
     type === "tv" ? details?.first_air_date : details?.release_date;
   const runtime = details?.runtime;
+
   const player =
     type === "tv" ? (
       <iframe
-        src={"https://embed.su/embed/tv/" + id + "/1/" + "1"}
+        src={`https://vidlink.pro/tv/${id}/${season}/${episode}?autoplay=false`}
         width="100%"
         height="100%"
         allowFullScreen
       ></iframe>
     ) : (
       <iframe
-        src={"https://embed.su/embed/movie/" + id}
+        src={`https://vidlink.pro/movie/${id}?autoplay=false`}
         width="100%"
         height="100%"
         allowFullScreen
@@ -198,7 +224,46 @@ const Details = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 my-20 py-5">
+
+        {/* Season & Episode Selector */}
+        {type === "tv" && (
+          <div className="flex justify-center gap-4 my-10">
+            <label className="font-bold">
+              Season:
+              <select
+                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500"
+                value={season}
+                onChange={(e) => setSeason(Number(e.target.value))}
+              >
+                {Array.from(
+                  { length: details?.number_of_seasons || 10 },
+                  (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  )
+                )}
+              </select>
+            </label>
+
+            <label className="font-bold">
+              Episode:
+              <select
+                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500"
+                value={episode}
+                onChange={(e) => setEpisode(Number(e.target.value))}
+              >
+                {Array.from({ length: totalEpisodes }, (_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        )}
+
+        <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 my-10">
           <div className="lg:w-[1000px] lg:h-[450px] md:w-[700px] md:h-[350px] w-[100%] h-[250px]">
             {player ? player : <p>Video content is unavailable.</p>}
           </div>
