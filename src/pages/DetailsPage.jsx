@@ -3,7 +3,7 @@ import {
   imgUrl,
   fetchDetails,
   fetchCredits,
-  creatImageUrl,
+  createImageUrl,
   key,
 } from "../services/movieServices";
 import { useParams } from "react-router-dom";
@@ -185,7 +185,7 @@ const Details = () => {
                   {type === "movie" && (
                     <p>
                       <strong>Director: </strong> {director}
-                      <strong className="ml-8">Writers:</strong> {writer}
+                      <strong className="ml-8">Writer:</strong> {writer}
                     </p>
                   )}
                   {type === "tv" && (
@@ -208,7 +208,7 @@ const Details = () => {
                       <div className="mx-3 mb-4" key={member?.id}>
                         <img
                           className="rounded-md max-w-[157px]"
-                          src={creatImageUrl(member?.profile_path, "w300")}
+                          src={createImageUrl(member?.profile_path, "w300")}
                           alt={member?.name || "Cast Member"}
                         />
                         <p className="font-bold pt-3 pl-3">
@@ -231,7 +231,7 @@ const Details = () => {
             <label className="font-bold">
               Season:
               <select
-                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500"
+                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500 cursor-pointer"
                 value={season}
                 onChange={(e) => setSeason(Number(e.target.value))}
               >
@@ -249,7 +249,7 @@ const Details = () => {
             <label className="font-bold">
               Episode:
               <select
-                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500"
+                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500 cursor-pointer"
                 value={episode}
                 onChange={(e) => setEpisode(Number(e.target.value))}
               >
