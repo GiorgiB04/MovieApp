@@ -85,11 +85,11 @@ const Movies = () => {
 
           <div className="mt-8 justify-center">
             <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-5 xs:grid-cols-2 grid-cols-2">
-              {movies?.length > 0
-                ? movies.map((item) => (
-                    <Card key={item?.id} item={item} type={"movie"} />
-                  ))
-                : !loading && <p className="text-center">No movies found.</p>}
+              {movies
+                .filter((item) => item.poster_path) // Ensure only items with images
+                .map((item) => (
+                  <Card key={item.id} item={item} type="movie" />
+                ))}
             </div>
           </div>
         </div>

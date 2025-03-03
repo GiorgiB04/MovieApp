@@ -7,7 +7,9 @@ import DetailsPage from "./pages/DetailsPage";
 import Footer from "./components/Footer";
 import Movies from "./pages/Movies";
 import Shows from "./pages/Shows";
+import People from "./pages/People";
 import Search from "./pages/Search";
+import Person from "./pages/Person";
 
 export const App = () => {
   return (
@@ -18,6 +20,9 @@ export const App = () => {
         <Route path="/:type/:id" element={<DetailsPage />} />
         <Route path="/movies/" element={<Movies />} />
         <Route path="/shows/" element={<Shows />} />
+        <Route path="/person/:id" element={<Person />} />
+
+        <Route path="/people/" element={<People />} />
         <Route path="/search/" element={<Search />} />
       </Routes>
       <Footer />

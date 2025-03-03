@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import {
   imgUrl,
   fetchDetails,
@@ -205,19 +207,25 @@ const Details = () => {
                   cast
                     ?.filter((member) => member?.profile_path) // Filter out items with null profile_path
                     .map((member) => (
-                      <div className="mx-3 mb-4" key={member?.id}>
-                        <img
-                          className="rounded-md max-w-[157px]"
-                          src={createImageUrl(member?.profile_path, "w300")}
-                          alt={member?.name || "Cast Member"}
-                        />
-                        <p className="font-bold pt-3 pl-3">
-                          {member?.name || "Unknown Name"}
-                        </p>
-                        <p className="pl-3">
-                          {member?.character || "Unknown Character"}
-                        </p>
-                      </div>
+                      <Link
+                        to={`/person/${member.id}`}
+                        key={member.id}
+                        className="mx-3 mb-4"
+                      >
+                        <div className="cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out">
+                          <img
+                            className="rounded-md max-w-[157px]"
+                            src={createImageUrl(member?.profile_path, "w300")}
+                            alt={member?.name || "Cast Member"}
+                          />
+                          <p className="font-bold pt-3 pl-3">
+                            {member?.name || "Unknown Name"}
+                          </p>
+                          <p className="pl-3">
+                            {member?.character || "Unknown Character"}
+                          </p>
+                        </div>
+                      </Link>
                     ))
                 )}
               </div>

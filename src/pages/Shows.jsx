@@ -85,11 +85,11 @@ const Shows = () => {
 
           <div className="mt-8 justify-center">
             <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-5 xs:grid-cols-2 grid-cols-2">
-              {shows?.length > 0
-                ? shows.map((item) => (
-                    <Card key={item?.id} item={item} type={"tv"} />
-                  ))
-                : !loading && <p className="text-center">No Shows found.</p>}
+              {shows
+                .filter((item) => item.poster_path) // Hide shows with no image
+                .map((item) => (
+                  <Card key={item.id} item={item} type="tv" />
+                ))}
             </div>
           </div>
         </div>

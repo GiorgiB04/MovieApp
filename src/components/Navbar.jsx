@@ -20,7 +20,7 @@ function Navbar() {
             TV Shows
           </div>
         </Link>
-        <Link to={"/"}>
+        <Link to={"/people"}>
           <div className="uppercase font-bold pointer text-base pr-5">
             People
           </div>

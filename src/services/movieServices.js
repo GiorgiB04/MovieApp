@@ -70,3 +70,30 @@ export const searchData = async (query, page) => {
   );
   return res?.data;
 };
+
+//People
+export const fetchPeople = async (page = 1) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/person/popular?api_key=${key}&page=${page}`
+  );
+  const data = await response.json();
+  return data;
+};
+
+// Fetch person details
+export const fetchPersonDetails = async (personId) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/person/${personId}?api_key=${key}&language=en-US`
+  );
+  const data = await response.json();
+  return data;
+};
+
+// Fetch person's movies & TV credits
+export const fetchPersonCredits = async (personId) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/person/${personId}/combined_credits?api_key=${key}&language=en-US`
+  );
+  const data = await response.json();
+  return data;
+};
