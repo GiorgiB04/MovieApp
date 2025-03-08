@@ -23,7 +23,12 @@ const Person = () => {
       .then(([personData, creditsData]) => {
         setPerson(personData);
         setCredits(
-          (creditsData.cast || []).filter((credit) => credit.poster_path) // ✅ Only show items with images
+          (creditsData.cast || []).filter(
+            (credit) =>
+              credit.poster_path && // ✅ Ensure it has an image
+              credit.media_type !== "tv" && // ❌ Exclude TV shows (optional)
+              !/(Talk|News|Documentary)/i.test(credit.title || credit.name) // ❌ Filter out by title/name
+          )
         );
       })
       .catch((err) => {
