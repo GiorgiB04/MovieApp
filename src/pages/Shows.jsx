@@ -84,7 +84,7 @@ const Shows = () => {
           </div>
 
           <div className="mt-8 justify-center">
-            <div className="gap-8 grid lg:grid-cols-7 md:grid-cols-5 xs:grid-cols-2 grid-cols-2">
+            <div className="gap-8 grid xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 xs:grid-cols-2 grid-cols-2">
               {shows
                 .filter((item) => item.poster_path) // Hide shows with no image
                 .map((item) => (
