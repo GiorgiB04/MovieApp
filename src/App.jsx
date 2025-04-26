@@ -9,11 +9,13 @@ import Shows from "./pages/Shows";
 import People from "./pages/People";
 import Search from "./pages/Search";
 import Person from "./pages/Person";
-import BottomNav from "./components/BottomNav"; // ახალი დამატება
+import BottomNav from "./components/BottomNav";
+import ScrollToTop from "./components/ScrollToTop";
 
 export const App = () => {
   return (
     <>
+      <ScrollToTop />
       <div className="bg-[#1a1c29] min-h-screen text-white pt-20 ">
         <div className="hidden md:block">
           <Navbar />
