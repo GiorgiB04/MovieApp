@@ -6,6 +6,10 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // დამატებით უსაფრთხოდ:
+    document.body.scrollTop = 0; // Safari
+    document.documentElement.scrollTop = 0; // Chrome, Firefox, IE, Opera
   }, [pathname]);
 
   return null;
