@@ -2,19 +2,27 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
-  const { pathname, search } = useLocation(); // ✅ search ამოვიღეთ
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "instant",
-      });
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+
+      // Attempt all known ways
+      window.scrollTo(0, 0);
+
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
-    }, 0);
-  }, [pathname, search]); // ✅ add [pathname, search]
+
+      const scrollingElement =
+        document.scrollingElement || document.documentElement;
+      if (scrollingElement) {
+        scrollingElement.scrollTop = 0;
+      }
+    }, 50); // მცირე დაგვიანება
+  }, [pathname, search]);
 
   return null;
 };
