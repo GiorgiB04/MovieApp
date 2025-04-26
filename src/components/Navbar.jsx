@@ -30,10 +30,10 @@ const Navbar = () => {
             to={item.href}
             className="relative group text-sm font-semibold tracking-widest uppercase"
           >
-            <span className="text-white group-hover:text-red-500 transition-colors duration-300">
+            <span className="text-white group-hover:text-blue-500 transition-colors duration-300">
               {item.label}
             </span>
-            <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-gradient-to-r from-red-500 via-pink-500 to-red-500 group-hover:w-full transition-all duration-500 ease-out"></span>
+            <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-gradient-to-r from-sky-500 cyan-500 blue-500 group-hover:w-full transition-all duration-500 ease-out"></span>
           </Link>
         ))}
       </div>
