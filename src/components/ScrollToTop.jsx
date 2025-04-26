@@ -2,15 +2,19 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation(); // ✅ search ამოვიღეთ
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
-    // დამატებით უსაფრთხოდ:
-    document.body.scrollTop = 0; // Safari
-    document.documentElement.scrollTop = 0; // Chrome, Firefox, IE, Opera
-  }, [pathname]);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant",
+      });
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }, 0);
+  }, [pathname, search]); // ✅ add [pathname, search]
 
   return null;
 };
