@@ -14,21 +14,23 @@ import BottomNav from "./components/BottomNav"; // ახალი დამა�
 export const App = () => {
   return (
     <>
-      <div className="hidden md:block">
-        <Navbar />
-      </div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/:type/:id" element={<DetailsPage />} />
-        <Route path="/movies/" element={<Movies />} />
-        <Route path="/shows/" element={<Shows />} />
-        <Route path="/person/:id" element={<Person />} />
-        <Route path="/people/" element={<People />} />
-        <Route path="/search/" element={<Search />} />
-      </Routes>
-      <Footer />
-      <div className="md:hidden">
-        <BottomNav />
+      <div className="bg-[#1a1c29] min-h-screen text-white pt-20 ">
+        <div className="hidden md:block">
+          <Navbar />
+        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/:type/:id" element={<DetailsPage />} />
+          <Route path="/movies/" element={<Movies />} />
+          <Route path="/shows/" element={<Shows />} />
+          <Route path="/person/:id" element={<Person />} />
+          <Route path="/people/" element={<People />} />
+          <Route path="/search/" element={<Search />} />
+        </Routes>
+        <Footer />
+        <div className="md:hidden">
+          <BottomNav />
+        </div>
       </div>
     </>
   );

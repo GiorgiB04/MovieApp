@@ -1,38 +1,44 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../img/logo.png";
 
-function Navbar() {
+const Navbar = () => {
+  const navItems = [
+    { label: "Home", href: "/" },
+    { label: "Movies", href: "/movies" },
+    { label: "TV Shows", href: "/shows" },
+    { label: "People", href: "/people" },
+    { label: "Search", href: "/search" },
+  ];
+
   return (
-    <div className="w-full p-5 nav flex flex-wrap shadow-md">
-      <Link to={"/"}>
-        <div className="mr-5 ml-5 uppercase text-cyan-700 font-bold pointer text-3xl ">
-          prime filmy
-        </div>
+    <nav className="fixed h-20 top-0 left-0 right-0 bg-[#23243a] bg-opacity-80 backdrop-blur-md text-white z-50 hidden md:flex items-center justify-between px-10 shadow-md">
+      {/* Logo */}
+      <Link to="/" className="flex items-center space-x-2">
+        <img
+          src={logo}
+          alt="PrimeFilmy Logo"
+          className="h-9 w-auto object-contain"
+        />
       </Link>
-      <div className="mx-4 flex flex-wrap items-center">
-        <Link to={"/movies"}>
-          <div className="uppercase font-medium pointer text-base mr-5">
-            Movies
-          </div>
-        </Link>
-        <Link to={"/shows"}>
-          <div className="uppercase font-bold pointer text-base pr-5">
-            TV Shows
-          </div>
-        </Link>
-        <Link to={"/people"}>
-          <div className="uppercase font-bold pointer text-base pr-5">
-            People
-          </div>
-        </Link>
-        <Link to={"/Search"}>
-          <div className="uppercase font-bold pointer text-base pr-5">
-            Search
-          </div>
-        </Link>
+
+      {/* Menu */}
+      <div className="flex space-x-8">
+        {navItems.map((item, idx) => (
+          <Link
+            key={idx}
+            to={item.href}
+            className="relative group text-sm font-semibold tracking-widest uppercase"
+          >
+            <span className="text-white group-hover:text-red-500 transition-colors duration-300">
+              {item.label}
+            </span>
+            <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-gradient-to-r from-red-500 via-pink-500 to-red-500 group-hover:w-full transition-all duration-500 ease-out"></span>
+          </Link>
+        ))}
       </div>
-    </div>
+    </nav>
   );
-}
+};
 
 export default Navbar;
