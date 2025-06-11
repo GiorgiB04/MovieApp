@@ -54,14 +54,14 @@ cd MovieApp
 ```
 
 ### 2. Install dependencies
-npm install
+```npm install```
 
 ### 3. Add your TMDb API key
 Create a .env file in the root directory and add:
 VITE_TMDB_API_KEY=your_tmdb_api_key_here
 
 ### 4. Start the development server
-npm run dev
+```npm run dev```
 
 ![ScreenShot](https://github.com/GiorgiB04/MovieApp/blob/main/src/img/Screenshot.jpg?raw=true)
 
