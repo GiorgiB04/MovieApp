@@ -1,6 +1,6 @@
-# 🎬 Movie App — Streaming Platform with vidlink.pro
+# 🎬 Movie App — Streaming Platform
 
-A responsive movie streaming application built with **React** and **TMDb API**, featuring integrated streaming through **vidlink.pro**.  
+A responsive movie streaming application built with **React** and **TMDb API**, featuring integrated streaming player.  
 The app allows users to explore movies, view details, and watch content directly from third-party embed sources.
 
 ---
