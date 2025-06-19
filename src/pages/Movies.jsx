@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Card from "../components/Card";
 import { fetchMovies, fetchGenres } from "../services/movieServices";
@@ -52,8 +52,6 @@ const Movies = () => {
       <div className="mt-4 mx-2 flex justify-center">
         <div className="px-5 pb-10">
           <div className="flex my-7 items-center">
-            <h2 className="font-bold md:text-xl mr-5 capitalize">Movies</h2>
-
             {/* Sort By Dropdown */}
             <select
               className="border-slate-500 py-1 px-4 rounded-full border-2 dark:bg-slate-800"
