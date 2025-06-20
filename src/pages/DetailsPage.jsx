@@ -154,7 +154,21 @@ const Details = () => {
                   src={imgUrl + "/w300" + details.poster_path}
                   alt={title}
                 />
+                <div className="flex justify-center my-5">
+                  <Link
+                    to={
+                      type === "tv"
+                        ? `/player/${id}/${type}/${season}/${episode}`
+                        : `/player/${id}/${type}`
+                    }
+                  >
+                    <button className="px-6 py-2 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 transition">
+                      🧩 Watch via Add-on
+                    </button>
+                  </Link>
+                </div>
               </div>
+
               <div className="m-2 px-5 w-full">
                 <h2 className="py-3 text-5xl font-bold">{title}</h2>
                 <div>
@@ -230,50 +244,6 @@ const Details = () => {
                 )}
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Season & Episode Selector */}
-        {type === "tv" && (
-          <div className="flex justify-center gap-4 my-10">
-            <label className="font-bold">
-              Season:
-              <select
-                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500 cursor-pointer"
-                value={season}
-                onChange={(e) => setSeason(Number(e.target.value))}
-              >
-                {Array.from(
-                  { length: details?.number_of_seasons || 10 },
-                  (_, i) => (
-                    <option key={i + 1} value={i + 1}>
-                      {i + 1}
-                    </option>
-                  )
-                )}
-              </select>
-            </label>
-
-            <label className="font-bold">
-              Episode:
-              <select
-                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500 cursor-pointer"
-                value={episode}
-                onChange={(e) => setEpisode(Number(e.target.value))}
-              >
-                {Array.from({ length: totalEpisodes }, (_, i) => (
-                  <option key={i + 1} value={i + 1}>
-                    {i + 1}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        )}
-
-        <div className="flex justify-center lg:grid-cols-7 md:grid-cols-3 xs:grid-cols-1 sm:grid-cols-2 my-10">
-          <div className="lg:w-[1000px] lg:h-[450px] md:w-[700px] md:h-[350px] w-[100%] h-[250px]">
-            {player ? player : <p>Video content is unavailable.</p>}
           </div>
         </div>
       </div>

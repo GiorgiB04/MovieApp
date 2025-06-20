@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Card from "../components/Card";
 import { fetchShows, fetchTvGenres } from "../services/movieServices";

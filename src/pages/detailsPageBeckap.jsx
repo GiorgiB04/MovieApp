@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import {
   imgUrl,
   fetchDetails,
   fetchCredits,
-  creatImageUrl,
+  createImageUrl,
   key,
 } from "../services/movieServices";
 import { useParams } from "react-router-dom";
@@ -185,7 +187,7 @@ const Details = () => {
                   {type === "movie" && (
                     <p>
                       <strong>Director: </strong> {director}
-                      <strong className="ml-8">Writers:</strong> {writer}
+                      <strong className="ml-8">Writer:</strong> {writer}
                     </p>
                   )}
                   {type === "tv" && (
@@ -205,19 +207,25 @@ const Details = () => {
                   cast
                     ?.filter((member) => member?.profile_path) // Filter out items with null profile_path
                     .map((member) => (
-                      <div className="mx-3 mb-4" key={member?.id}>
-                        <img
-                          className="rounded-md max-w-[157px]"
-                          src={creatImageUrl(member?.profile_path, "w300")}
-                          alt={member?.name || "Cast Member"}
-                        />
-                        <p className="font-bold pt-3 pl-3">
-                          {member?.name || "Unknown Name"}
-                        </p>
-                        <p className="pl-3">
-                          {member?.character || "Unknown Character"}
-                        </p>
-                      </div>
+                      <Link
+                        to={`/person/${member.id}`}
+                        key={member.id}
+                        className="mx-3 mb-4"
+                      >
+                        <div className="cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out">
+                          <img
+                            className="rounded-md max-w-[157px]"
+                            src={createImageUrl(member?.profile_path, "w300")}
+                            alt={member?.name || "Cast Member"}
+                          />
+                          <p className="font-bold pt-3 pl-3">
+                            {member?.name || "Unknown Name"}
+                          </p>
+                          <p className="pl-3">
+                            {member?.character || "Unknown Character"}
+                          </p>
+                        </div>
+                      </Link>
                     ))
                 )}
               </div>
@@ -231,7 +239,7 @@ const Details = () => {
             <label className="font-bold">
               Season:
               <select
-                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500"
+                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500 cursor-pointer"
                 value={season}
                 onChange={(e) => setSeason(Number(e.target.value))}
               >
@@ -249,7 +257,7 @@ const Details = () => {
             <label className="font-bold">
               Episode:
               <select
-                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500"
+                className="mx-2 p-2 border rounded dark:bg-slate-800 border-slate-500 cursor-pointer"
                 value={episode}
                 onChange={(e) => setEpisode(Number(e.target.value))}
               >

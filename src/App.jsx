@@ -11,6 +11,7 @@ import Search from "./pages/Search";
 import Person from "./pages/Person";
 import BottomNav from "./components/BottomNav";
 import ScrollToTop from "./components/ScrollToTop";
+import Player from "./pages/Player";
 
 export const App = () => {
   return (
@@ -28,6 +29,10 @@ export const App = () => {
           <Route path="/person/:id" element={<Person />} />
           <Route path="/people/" element={<People />} />
           <Route path="/search/" element={<Search />} />
+          <Route
+            path="/player/:id/:type/:season?/:episode?"
+            element={<Player />}
+          />
         </Routes>
         <Footer />
         <div className="md:hidden">
